@@ -1,7 +1,7 @@
 {
     "name": "Simple RSS Feed Reader: Stay Updated with Your Favorite Feeds",
     "short_name": "Feed Reader",
-    "start_url": "rss-feed-reader",
+    "start_url": "/rss-feed-reader",
     "display": "standalone",
     "background_color": "#ffffff",
     "theme_color": "#000000",
