@@ -1,0 +1,445 @@
+{
+    "categories": [
+        {
+            "name": "News",
+            "displayInSidebar": true,
+            "popularFeeds": [
+                {
+                    "name": "The Guardian",
+                    "url": "https://www.theguardian.com/world/rss"
+                },
+                {
+                    "name": "Wired",
+                    "url": "https://www.wired.com/feed/rss"
+                },
+                {
+                    "name": "BBC News",
+                    "url": "https://feeds.bbci.co.uk/news/rss.xml"
+                },
+                {
+                    "name": "NPR",
+                    "url": "https://feeds.npr.org/1004/rss.xml"
+                },
+                {
+                    "name": "Reuters",
+                    "url": "https://news.google.com/rss/search?q=when:24h+allinurl:reuters.com&ceid=US:en&hl=en-US&gl=US"
+                }
+            ],
+            "additionalFeeds": [
+                {
+                    "name": "Al Jazeera",
+                    "url": "https://www.aljazeera.com/xml/rss/all.xml"
+                },
+                {
+                    "name": "New York Times",
+                    "url": "https://rss.nytimes.com/services/xml/rss/nyt/HomePage.xml"
+                },
+                {
+                    "name": "The Wall Street Journal",
+                    "url": "https://feeds.a.dj.com/rss/RSSMarketsMain.xml"
+                },
+                {
+                    "name": "The Independent News",
+                    "url": "https://www.independent.co.uk/news/rss"
+                }
+            ]
+        },
+        {
+            "name": "Technology",
+            "displayInSidebar": true,
+            "popularFeeds": [
+                {
+                    "name": "The Verge",
+                    "url": "https://www.theverge.com/rss/tech/index.xml"
+                },
+                {
+                    "name": "Techmeme",
+                    "url": "https://www.techmeme.com/feed.xml"
+                },
+                {
+                    "name": "Reddit Tech",
+                    "url": "https://www.reddit.com/r/technology/.rss"
+                },
+                {
+                    "name": "TechCrunch",
+                    "url": "https://techcrunch.com/feed/"
+                },
+                {
+                    "name": "Hacker News",
+                    "url": "https://news.ycombinator.com/rss"
+                }
+            ],
+            "additionalFeeds": [
+                {
+                    "name": "MIT Technology Review",
+                    "url": "https://www.technologyreview.com/feed"
+                },
+                {
+                    "name": "CNET",
+                    "url": "https://www.cnet.com/rss/news"
+                },
+                {
+                    "name": "Bloomberg Technology",
+                    "url": "https://feeds.bloomberg.com/technology/news.rss"
+                },
+                {
+                    "name": "The Next Web",
+                    "url": "http://feeds2.feedburner.com/TheNextWeb"
+                },
+                {
+                    "name": "Ars Technica",
+                    "url": "https://feeds.arstechnica.com/arstechnica/gadgets"
+                },
+                {
+                    "name": "CNBC Tech",
+                    "url": "https://www.cnbc.com/id/19854910/device/rss/rss.html"
+                },
+                {
+                    "name": "BBC Technology",
+                    "url": "https://feeds.bbci.co.uk/news/technology/rss.xml"
+                },
+                {
+                    "name": "NPR Technology",
+                    "url": "https://feeds.npr.org/1019/rss.xml"
+                },
+                {
+                    "name": "NYT Technology",
+                    "url": "http://rss.nytimes.com/services/xml/rss/nyt/Technology.xml"
+                },
+                {
+                    "name": "Engadget",
+                    "url": "https://www.engadget.com/rss.xml"
+                },
+                {
+                    "name": "Gizmodo",
+                    "url": "https://gizmodo.com/rss"
+                },
+                {
+                    "name": "9to5Mac",
+                    "url": "https://9to5mac.com/feed/"
+                },
+                {
+                    "name": "9to5Google",
+                    "url": "https://9to5google.com/feed/"
+                },
+                {
+                    "name": "Techdirt",
+                    "url": "https://www.techdirt.com/feed/"
+                },
+                {
+                    "name": "Mashable",
+                    "url": "https://mashable.com/feeds/rss/all"
+                },
+                {
+                    "name": "ZDNET",
+                    "url": "https://www.zdnet.com/news/rss.xml"
+                },
+                {
+                    "name": "Slashdot",
+                    "url": "https://rss.slashdot.org/Slashdot/slashdot"
+                },
+                {
+                    "name": "Digital Trends",
+                    "url": "https://www.digitaltrends.com/feed/"
+                },
+                {
+                    "name": "Hacker Noon",
+                    "url": "https://hackernoon.com/feed"
+                },
+                {
+                    "name": "Android Authority",
+                    "url": "https://www.androidauthority.com/feed/"
+                }
+            ]
+        },
+        {
+            "name": "Dev",
+            "displayInSidebar": true,
+            "popularFeeds": [
+                {
+                    "name": "Windows Blog",
+                    "url": "https://blogs.windows.com/feed/"
+                },
+                {
+                    "name": "The Keyword / Google",
+                    "url": "https://blog.google/rss/"
+                },
+                {
+                    "name": "Microsoft Blog",
+                    "url": "https://blogs.microsoft.com/feed/"
+                }
+            ],
+            "additionalFeeds": [
+                {
+                    "name": "The Pragmatic Engineer",
+                    "url": "https://newsletter.pragmaticengineer.com/feed"
+                },
+                {
+                    "name": "CloudFlare",
+                    "url": "https://blog.cloudflare.com/rss/"
+                },
+                {
+                    "name": "Hugging Face",
+                    "url": "https://huggingface.co/blog/feed.xml"
+                },
+                {
+                    "name": "Zapier",
+                    "url": "https://zapier.com/blog/feeds/latest/"
+                },
+                {
+                    "name": "Josh Comeau's blog",
+                    "url": "https://www.joshwcomeau.com/rss.xml"
+                },
+                {
+                    "name": "r/Frontend",
+                    "url": "https://www.reddit.com/r/Frontend/.rss"
+                },
+                {
+                    "name": "r/learnprogramming",
+                    "url": "https://www.reddit.com/r/learnprogramming/.rss"
+                },
+                {
+                    "name": "r/HTML",
+                    "url": "https://www.reddit.com/r/HTML/.rss"
+                },
+                {
+                    "name": "r/css",
+                    "url": "https://www.reddit.com/r/css/.rss"
+                }
+            ]
+        },
+        {
+            "name": "Design",
+            "displayInSidebar": true,
+            "popularFeeds": [
+                {
+                    "name": "r/UXDesign",
+                    "url": "https://www.reddit.com/r/UXDesign/.rss"
+                },
+                {
+                    "name": "UX Collective",
+                    "url": "https://uxdesign.cc/feed"
+                }
+            ],
+            "additionalFeeds": [
+                {
+                    "name": "r/FigmaDesign",
+                    "url": "https://www.reddit.com/r/FigmaDesign/.rss"
+                },
+                {
+                    "name": "Tobias van Schneider",
+                    "url": "https://vanschneider.com/blog/rss/"
+                },
+                {
+                    "name": "Today in Design",
+                    "url": "https://rss.beehiiv.com/feeds/YB7xgKJlj7.xml"
+                },
+                {
+                    "name": "r/framer",
+                    "url": "https://www.reddit.com/r/framer/.rss"
+                }
+            ]
+        },
+        {
+            "name": "Science",
+            "displayInSidebar": false,
+            "popularFeeds": [],
+            "additionalFeeds": [
+                {
+                    "name": "Science News",
+                    "url": "https://www.sciencenews.org/feed"
+                },
+                {
+                    "name": "Popular Science",
+                    "url": "https://www.popsci.com/feed"
+                },
+                {
+                    "name": "Science Daily",
+                    "url": "https://www.sciencedaily.com/rss/all.xml"
+                },
+                {
+                    "name": "Nature.com",
+                    "url": "https://www.nature.com/nature.rss"
+                },
+                {
+                    "name": "Scientific American",
+                    "url": "http://rss.sciam.com/ScientificAmerican-Global"
+                }
+            ]
+        },
+        {
+            "name": "Entertainment",
+            "displayInSidebar": false,
+            "popularFeeds": [],
+            "additionalFeeds": [
+                {
+                    "name": "Deadline Hollywood",
+                    "url": "https://deadline.com/feed"
+                },
+                {
+                    "name": "Variety",
+                    "url": "https://variety.com/feed"
+                },
+                {
+                    "name": "Hollywood Reporter",
+                    "url": "https://www.hollywoodreporter.com/feed"
+                },
+                {
+                    "name": "Entertainment Weekly",
+                    "url": "https://ew.com/feed"
+                },
+                {
+                    "name": "IndieWire",
+                    "url": "https://www.indiewire.com/feed"
+                }
+            ]
+        },
+        {
+            "name": "Education",
+            "displayInSidebar": false,
+            "popularFeeds": [],
+            "additionalFeeds": [
+                {
+                    "name": "Inside Higher Ed",
+                    "url": "https://www.insidehighered.com/feed"
+                },
+                {
+                    "name": "EdSurge",
+                    "url": "https://www.edsurge.com/feed"
+                },
+                {
+                    "name": "Education Next",
+                    "url": "https://www.educationnext.org/feed"
+                },
+                {
+                    "name": "Chronicle of Higher Education",
+                    "url": "https://www.chronicle.com/rss"
+                },
+                {
+                    "name": "Education Week",
+                    "url": "https://www.edweek.org/feed"
+                }
+            ]
+        },
+        {
+            "name": "Startups",
+            "displayInSidebar": false,
+            "popularFeeds": [],
+            "additionalFeeds": [
+                {
+                    "name": "Inc.com",
+                    "url": "https://www.inc.com/rss"
+                },
+                {
+                    "name": "Entrepreneur",
+                    "url": "https://www.entrepreneur.com/feed"
+                },
+                {
+                    "name": "TechCrunch Startups",
+                    "url": "https://techcrunch.com/startups/feed"
+                },
+                {
+                    "name": "VentureBeat",
+                    "url": "https://venturebeat.com/feed"
+                },
+                {
+                    "name": "Forbes Entrepreneurs",
+                    "url": "https://www.forbes.com/entrepreneurs/feed"
+                }
+            ]
+        },
+        {
+            "name": "History",
+            "displayInSidebar": false,
+            "popularFeeds": [],
+            "additionalFeeds": [
+                {
+                    "name": "History Extra",
+                    "url": "https://www.historyextra.com/feed"
+                },
+                {
+                    "name": "Atlas Obscura",
+                    "url": "https://www.atlasobscura.com/feeds/latest"
+                },
+                {
+                    "name": "History.com",
+                    "url": "https://www.history.com/feed"
+                },
+                {
+                    "name": "Smithsonian Magazine History",
+                    "url": "https://www.smithsonianmag.com/history/feed"
+                },
+                {
+                    "name": "Ancient History Encyclopedia",
+                    "url": "https://www.ancient.eu/feed"
+                }
+            ]
+        },
+        {
+            "name": "Space",
+            "displayInSidebar": true,
+            "popularFeeds": [
+                {
+                    "name": "NASA",
+                    "url": "https://www.nasa.gov/rss/dyn/breaking_news.rss"
+                },
+                {
+                    "name": "Space.com",
+                    "url": "https://www.space.com/feeds/all"
+                },
+                {
+                    "name": "Universe Today",
+                    "url": "https://www.universetoday.com/feed"
+                }
+            ],
+            "additionalFeeds": [
+                {
+                    "name": "Sky & Telescope",
+                    "url": "https://skyandtelescope.org/feed"
+                },
+                {
+                    "name": "Astronomy.com",
+                    "url": "https://astronomy.com/rss"
+                }
+            ]
+        },
+        {
+            "name": "Essays",
+            "displayInSidebar": false,
+            "popularFeeds": [],
+            "additionalFeeds": [
+                {
+                    "name": "Paul Graham",
+                    "url": "http://www.aaronsw.com/2002/feeds/pgessays.rss"
+                },
+                {
+                    "name": "Steph Ango",
+                    "url": "https://stephango.com/feed.xml"
+                },
+                {
+                    "name": "Sam Altman",
+                    "url": "http://blog.samaltman.com/posts.atom"
+                }
+            ]
+        },
+        {
+            "name": "Social",
+            "displayInSidebar": false,
+            "popularFeeds": [],
+            "additionalFeeds": [
+                {
+                    "name": "TED",
+                    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCAuUUnT6oDeKwE6v1NGQxug"
+                },
+                {
+                    "name": "Bloomberg",
+                    "url": "https://www.youtube.com/feeds/videos.xml?channel_id=UCUMZ7gohGI9HcU9VNsr2FJQ"
+                },
+                {
+                    "name": "Reddit",
+                    "url": "https://www.reddit.com/.rss"
+                }
+            ]
+        }
+    ]
+}

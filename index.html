@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple RSS Feed Reader: Stay Updated with Your Favorite Feeds</title>
+    <meta name="description"
+        content="Easily track and find posts from all your RSS feeds in one place. Stay updated with new content from your favorite sources. Simple and user-friendly. Install it as a PWA for quick access and a smooth experience.">
+    <meta property="og:image" content="assets/social-image.png">
+    <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
+    <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon.svg">
+
+    <meta property="og:title" content="Simple RSS Feed Reader: Stay Updated with Your Favorite Feeds">
+    <meta property="og:description"
+        content="Easily track and find posts from all your RSS feeds in one place. Stay updated with new content from your favorite sources. Simple and user-friendly. Install it as a PWA for quick access and a smooth experience.">
+    <meta property="og:image" content="assets/social-image.png">
+    <meta property="og:url" content="">
+    <meta property="og:type" content="website">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Vollkorn:ital,wght@0,400..900;1,400..900&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web@2.1.1/src/duotone/style.css" />
+
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+    <meta name="robots" content="index, follow">
+</head>
+
+<body>
+
+    <main class="container">
+        <section class="top-level">
+            <div class="logo-name" onclick="location.reload(true);">
+                <img class="logo" src="assets/favicon.svg" alt="rss-favicon">
+                <h4 class="website-name">Feed Reader</h4>
+            </div>
+            <p class="subtitle">A simple RSS feed reader for configuring and displaying multiple feeds.</p>
+
+            <button id="configure-btn">
+                <i class="ph-duotone ph-sliders-horizontal"></i>
+                Configure feeds
+            </button>
+
+            <div class="controls">
+                <select id="feed-selector" aria-label="Select a feed">
+                    <!-- Feeds will be populated here -->
+                </select>
+            </div>
+            <div class="bottom">
+                <button class="add-button" aria-label="Install app">
+                    Try the App Mode
+                </button>
+                <p class="footnote">To check for new posts, press <code>Ctrl+F5</code>.</p>
+                <p class="footnote">
+                    Disclaimer: This platform's JavaScript is fully built using Mistral AI. It uses
+                    a CORS proxy to fetch RSS feeds. All data is processed locally in your browser, and your feeds are
+                    stored on your device without being sent to any server.
+                </p>
+                <p class="footnote">
+                    Your continued usage of this site means you agree to<a class="modal-link"
+                        href="https://github.com/romiojoseph/rss-feed-reader" target="_blank"
+                        rel="noopener noreferrer">the terms and conditions, privacy policy, and disclaimer</a>.
+                </p>
+
+                <button id="openFaqModal">
+                    <i class="ph-duotone ph-question"></i>
+                    Curious? Read the FAQ
+                </button>
+            </div>
+        </section>
+
+        <section class="feed-level">
+            <div class="main-content">
+
+                <div id="loading">Loading...</div>
+                <div id="error-message"></div>
+                <div class="feed-header" id="feed-header">
+                    <!-- Feed title and description will be displayed here -->
+                </div>
+                <div id="feed-container"></div>
+                <div class="no-feed-message" id="no-feed-message" style="display: none;">
+                    <i class="ph-duotone ph-article"></i>
+                    <h6 class="subtle-heading">No feeds are set up yet.</h6>
+                    <p class="footnote">Click the configure button to add URLs or import them. Your configured feeds are
+                        stored in your browser's local storage. You can also pick any feed from the discover section.
+                    </p>
+                </div>
+                <button id="load-more-btn" style="display: none;">
+                    Load More Posts</button>
+            </div>
+        </section>
+
+        <section class="suggestion-level">
+            <aside class="sidebar">
+                <h6 class="subtle-heading">Discover more feeds</h6>
+                <input type="text" id="search-input" placeholder="Search feeds...">
+                <div id="suggested-feeds">
+                    <!-- Categories and feeds will be displayed here -->
+                </div>
+                <select id="additional-feeds" aria-label="Explore more feeds">
+                    <option value="" disabled selected>Explore more feeds</option>
+                    <!-- Additional feeds will be displayed here -->
+                </select>
+                <div id="no-matches-message" style="display: none;">
+                    <i class="ph-duotone ph-warning-circle"></i>
+                    <p>No matches found.</p>
+                    <p class="footnote">Remember to check the dropdown too.</p>
+                </div>
+            </aside>
+        </section>
+
+        <div id="configureModal" class="modal">
+            <div class="modal-content">
+                <div class="modal-head">
+                    <h5 class="modal-title">Configure your feeds</h5>
+                    <span class="close">&times;</span>
+                </div>
+                <div class="urls">
+                    <div class="add-feed-optn">
+                        <input type="text" id="feed-url" placeholder="Paste the RSS feed URL you want to follow">
+                        <button class="urls-button" onclick="addFeed()">
+                            <i class="ph-duotone ph-rss"></i>
+                            Add feed
+                        </button>
+                    </div>
+                    <div class="load-csv-optn">
+                        <input type="text" id="csv-url"
+                            placeholder="Or paste the published CSV URL, such as one from Google Sheets">
+                        <button class="urls-button" onclick="loadCSVFromURL()">
+                            <i class="ph-duotone ph-git-pull-request"></i>
+                            Load CSV
+                        </button>
+                        <input type="file" id="csv-upload" accept=".csv" style="display:none;"
+                            onchange="uploadCSV(event)">
+                    </div>
+                    <p class="footnote">Open a new Google Sheet, name the page "Feed URLs," and set "Feed URLs" as the
+                        header in cell A1. Paste the RSS feed URLs in the first column, then go to File > Share >
+                        Publish to web. Select the "Feed URLs" page, choose the CSV format, publish it, and copy the
+                        link.</p>
+                    <div class="add-feed-optn">
+                        <button class="up-down" onclick="document.getElementById('csv-upload').click()">
+                            <i class="ph-duotone ph-file-arrow-up"></i>
+                            Or select CSV from your device
+                        </button>
+                        <button id="downloadCSV" class="up-down" onclick="downloadCSV()">
+                            <i class="ph-duotone ph-file-arrow-down"></i>
+                            Download CSV backup
+                        </button>
+                    </div>
+                </div>
+
+                <table>
+                    <thead>
+                        <tr>
+                            <th class="column1">URL</th>
+                            <th class="column2">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="feed-table">
+                        <!-- Feeds will be displayed here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- FAQ Modal -->
+        <div id="faqModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h5 class="modal-title">FAQ</h5>
+                <div class="faq-content">
+
+                    <p>First of all, I haven’t added any trackers or analytics, so feel free to browse without worry.<a
+                            class="modal-link" href="https://github.com/romiojoseph/rss-feed-reader" target="_blank"
+                            rel="noopener noreferrer">Read the terms and conditions, privacy policy, and disclaimer</a>.
+                    </p>
+
+                    <h6 class="subtle-heading">Why another feed reader?</h6>
+                    <p>Honestly, I built this for myself because a few weeks ago, Omnivore announced <a
+                            class="modal-link" href="https://www.theverge.com/rss/index.xml" target="_blank"
+                            rel="noopener noreferrer">they were joining ElevenLabs</a> and <a class="modal-link"
+                            href="https://blog.omnivore.app/p/details-on-omnivore-shutting-down" target="_blank"
+                            rel="noopener noreferrer"> shutting down their service.</a> I started searching for a new
+                        one but thought, why not try building one myself? And here I am. My initial plan was to create
+                        an Android app, but I temporarily settled for this. Maybe someday I'll revisit the idea.
+                    </p>
+
+                    <h6 class="subtle-heading">What is an RSS feed?</h6>
+                    <p>
+                        RSS feeds provide updates about the latest posts, blogs, or articles from a website. For
+                        example, you can check this feed: <a class="modal-link"
+                            href="https://www.theverge.com/rss/index.xml" target="_blank" rel="noopener noreferrer">The
+                            Verge RSS feed</a>.
+                    </p>
+
+                    <h6 class="subtle-heading">How can I find an RSS feed for a website?</h6>
+                    <p>
+                        Many blogs and websites have RSS feeds by default. To check, visit <a class="modal-link"
+                            href="https://feedsearch.dev/" target="_blank" rel="noopener noreferrer">Feedsearch</a> and
+                        paste any website URL. It will show if an RSS feed is available.
+                    </p>
+
+                    <h6 class="subtle-heading">Why use RSS feeds?</h6>
+                    <p>When you subscribe to an RSS feed using an RSS reader app, you get updates directly in your feed.
+                        This saves you from manually checking websites, newsletters, or profiles. You can curate your
+                        own news feed and stay in control of what you want to see. <a class="modal-link"
+                            href="https://romio.substack.com/p/rss-feeds-vs-email-subscriptions" target="_blank"
+                            rel="noopener noreferrer">Shared a blog here</a>.
+                    </p>
+
+                    <h6 class="subtle-heading">Which RSS reader apps should I try?</h6>
+                    <p>If you're not happy here you can check out the Vivaldi browser, it includes an RSS reader, so you
+                        can use it without relying on third-party apps. However, this feature is currently unavailable
+                        on their mobile app. Other options include apps like <a class="modal-link"
+                            href="https://feeder.co/" target="_blank" rel="noopener noreferrer">Feeder</a>.
+                    </p>
+
+                    <h6 class="subtle-heading">Do RSS feeds only show a few posts and replace old ones?</h6>
+                    <p>Yes, RSS feeds typically show a limited number of recent posts (e.g., 10-20), and older ones are
+                        replaced as new content is added. To keep track of older posts, you can <a class="modal-link"
+                            href="https://raindrop.io" target="_blank" rel="noopener noreferrer">bookmark or save the
+                            link using a service like Raindrop</a>.</p>
+
+                    <h6 class="subtle-heading">What is a CORS proxy, and why is it used?</h6>
+                    <p>
+                        A CORS proxy allows the app to fetch RSS feeds from different domains by bypassing cross-origin
+                        restrictions.
+                        This ensures the app can access and display feeds from various sources seamlessly.
+                        For this app, I used the <a class="modal-link" href="https://allorigins.win/" target="_blank"
+                            rel="noopener noreferrer">AllOrigins</a> CORS proxy service—thank you for the great service!
+                        The proxy acts as an intermediary, fetching the feed content and returning it to the app for
+                        display.
+                    </p>
+
+                    <h6 class="subtle-heading">How often are the feeds refreshed?</h6>
+                    <p>The feeds are refreshed every 6 hours. The application uses a service worker to cache the feed
+                        data and set an expiration time of 6 hours. After this period, the feed data is refreshed from
+                        the server.
+                    </p>
+
+                    <h6 class="subtle-heading">What happens if I manually refresh the feeds?</h6>
+                    <p>You can manually refresh the feeds by pressing "Ctrl+F5" the tab (On mobile, swipe down twice).
+                        This triggers a fresh fetch of the feed data, bypassing the cache.
+                    </p>
+
+                    <h6 class="subtle-heading">What happens if I clear my browser data, including cache and cookies?
+                    </h6>
+                    <p>If you clear your browser data, including cache and cookies, the cached feed data, configured
+                        feeds and the last fetched timestamps will be lost. The application will need to fetch the feed
+                        data fresh from the server the next time you select a feed.
+                    </p>
+
+                    <h6 class="subtle-heading">Where is my data processed?</h6>
+                    <p>All data processing, including filtering and rendering, happens locally within your browser. Your
+                        configured feeds are stored in your browser's local storage.
+                    </p>
+
+                    <h6 class="subtle-heading">Is my data sent to any servers?</h6>
+                    <p>No, your configured feeds and search data are not sent to any external servers. All operations
+                        are performed locally within your browser.
+                    </p>
+
+                    <h6 class="subtle-heading">Remember to periodically download CSV backup</h6>
+                    <p>
+                        If you regularly add feed URLs manually, I suggest you use the Google Sheet way for easier
+                        management. However, if that feels like too much work, remember to download the CSV every now
+                        and then to keep a backup of your feeds.
+                    </p>
+
+
+                    <h6 class="subtle-heading">How is the selected feed preserved across page reloads?
+                    </h6>
+                    <p>The selected feed URL is stored in local storage. On page reload, the application retrieves the
+                        selected feed URL from local storage and sets the dropdown accordingly. This ensures that your
+                        feed selection is preserved across page reloads.
+                    </p>
+
+                    <h6 class="subtle-heading">Add on: Personal Telegram bot for sending RSS feed updates to a Telegram
+                        channel</h6>
+                    <p>This script allows you to fetch RSS feeds, check for new posts, and send them to a Telegram
+                        channel. The script uses Google Apps Script to handle the RSS feed fetching, Telegram messaging,
+                        and Google Sheets for tracking sent posts. <a class="modal-link"
+                            href="https://github.com/romiojoseph/open-source/tree/main/telegram-bots/rss-new-post-alert-via-telegram"
+                            target="_blank" rel="noopener noreferrer">Get it here</a>.
+                    </p>
+
+                    <h6 class="subtle-heading">How to get a YouTube channel's RSS feed?</h6>
+                    <p>To find the YouTube RSS feed for a channel, go to the channel's page. Right-click on the page and
+                        choose "View Page Source." Then, search for `channel_id=` in the source code. Copy the value
+                        that follows, which is the channel's ID. To create the feed URL, use the format:
+                        `https://www.youtube.com/feeds/videos.xml?channel_id=CHANNEL_ID`. Replace `CHANNEL_ID` with the
+                        ID you copied. This will give you the RSS feed for that channel.
+                    </p>
+
+                    <h6 class="subtle-heading">These FAQs were also created by Mistral AI</h6>
+                    <p>I shared the entire project code with Mistral AI and asked it to generate FAQs based on the
+                        code.
+                    </p>
+
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <script src="script.js"></script>
+    <script src="modal.js"></script>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            let loadCount = localStorage.getItem('loadCount');
+            if (!loadCount) {
+                loadCount = 1;
+            } else {
+                loadCount = parseInt(loadCount) + 1;
+            }
+            localStorage.setItem('loadCount', loadCount);
+            if (loadCount > 3) {
+                const bottomElement = document.querySelector('.bottom');
+                if (bottomElement) {
+                    bottomElement.classList.add('hidden');
+                    if (window.innerWidth <= 768) {
+                        document.body.appendChild(bottomElement);
+                        bottomElement.classList.remove('hidden');
+                    }
+                }
+            }
+        });
+
+        if ('serviceWorker' in navigator) {
+            window.addEventListener('load', () => {
+                navigator.serviceWorker.register('/service-worker.js')
+                    .then(registration => {
+                        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                    })
+                    .catch(error => {
+                        console.log('ServiceWorker registration failed: ', error);
+                    });
+            });
+        }
+    </script>
+</body>
+
+</html>

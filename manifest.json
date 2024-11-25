@@ -1,0 +1,16 @@
+{
+    "name": "Simple RSS Feed Reader: Stay Updated with Your Favorite Feeds",
+    "short_name": "Feed Reader",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#000000",
+    "description": "Easily track and find posts from all your RSS feeds in one place. Stay updated with new content from your favorite sources. Simple and user-friendly. Install it as a PWA for quick access and a smooth experience.",
+    "icons": [
+        {
+            "src": "assets/favicon.svg",
+            "sizes": "512x512",
+            "type": "image/svg+xml"
+        }
+    ]
+}
