@@ -167,6 +167,10 @@
                 {
                     "name": "Microsoft Blog",
                     "url": "https://blogs.microsoft.com/feed/"
+                },
+                {
+                    "name": "r/BlueskySocial",
+                    "url": "https://www.reddit.com/r/BlueskySocial/.rss"
                 }
             ],
             "additionalFeeds": [
@@ -362,16 +366,12 @@
                     "url": "https://www.atlasobscura.com/feeds/latest"
                 },
                 {
-                    "name": "History.com",
-                    "url": "https://www.history.com/feed"
-                },
-                {
                     "name": "Smithsonian Magazine History",
-                    "url": "https://www.smithsonianmag.com/history/feed"
+                    "url": "https://www.smithsonianmag.com/rss/latest_articles/"
                 },
                 {
                     "name": "Ancient History Encyclopedia",
-                    "url": "https://www.ancient.eu/feed"
+                    "url": "https://www.worldhistory.org/rss/"
                 }
             ]
         },
