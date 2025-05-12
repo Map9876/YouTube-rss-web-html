@@ -7,8 +7,11 @@ curl https://c.map987.dpdns.org/https://www.youtube.com/@JetLagWarriors -O
 
 
 https://www.youtube.com/feeds/videos.xml?channel_id=UC1soWWg79S9TUdSjzAHHftw
-中UC1soWWg79S9TUdSjzAHHftw就是YouTube视频主的channel_id，
+
+上面rss链接中，UC1soWWg79S9TUdSjzAHHftw就是YouTube用户的channel_id，
+
 ---------------
+
 
 # RSS Feed Reader
 *A simple RSS feed reader for configuring and displaying multiple feeds. Easily track and find posts from all your RSS feeds in one place. Stay updated with new content from your favorite sources. Simple and user-friendly. Install it as a PWA for quick access and a smooth experience.*
