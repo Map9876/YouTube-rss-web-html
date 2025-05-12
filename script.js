@@ -1,3 +1,64 @@
+
+// ==================== 在script.js最顶部添加 ====================
+// 翻译缓存
+const translationCache = new Map();
+
+// Google翻译API配置
+const GOOGLE_TRANSLATE_API = {
+  endpoint: "https://c.map987.dpdns.org/https://translate-pa.googleapis.com/v1/translateHtml",
+  apiKey: "AIzaSyATBXajvzQLTDHEQbcpq0Ihe0vWDHmO520" // 替换为您自己的API密钥
+};
+
+// 翻译函数
+async function translateWithGoogle(text, sourceLang = 'auto', targetLang = 'zh_cn') {
+  if (!text || text.trim() === '') return text;
+  
+  // 清理文本中的HTML标签和特殊字符
+  const cleanText = text.replace(/<[^>]*>|... Read more/g, '').trim();
+  if (!cleanText) return text;
+
+  try {
+    const targetUrl = "https://translate-pa.googleapis.com/v1/translateHtml";
+    const proxyUrl = `https://c.map987.dpdns.org/${targetUrl}`;
+    
+    const requestData = [[[cleanText], sourceLang, targetLang], "wt_lib"];
+    
+    const response = await fetch(proxyUrl, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json+protobuf',
+        'X-Goog-API-Key': 'AIzaSyATBXajvzQLTDHEQbcpq0Ihe0vWDHmO520',
+        'Origin': 'https://translate.goog',
+        'Referer': 'https://translate.goog/',
+        'User-Agent': navigator.userAgent
+      },
+      body: JSON.stringify(requestData)
+    });
+
+    if (!response.ok) {
+      const errorData = await response.json();
+      throw new Error(errorData[2]?.[0]?.[1]?.[0]?.[1] || `Translation failed with status ${response.status}`);
+    }
+
+    const data = await response.json();
+    
+    // 修改这里来处理新的响应格式
+    if (Array.isArray(data) && data.length > 0) {
+      // 返回第一个元素中的翻译结果
+      return data[0][0] || cleanText;
+    }
+    
+    return cleanText;
+  } catch (error) {
+    console.error('Google翻译失败:', error);
+    return text; // 返回原文
+  }
+}
+
+// 使用示例
+
+
+
 const feedSelector = document.getElementById('feed-selector');
 const searchInput = document.getElementById('search-input');
 const feedContainer = document.getElementById('feed-container');
@@ -12,7 +73,7 @@ const additionalFeeds = document.getElementById('additional-feeds');
 const noMatchesMessage = document.getElementById('no-matches-message');
 
 const CORS_PROXY = 'https://api.allorigins.win/raw?url=';
-const DEFAULT_FEED_URL = 'https://www.reddit.com/r/technology/.rss';
+const DEFAULT_FEED_URL = 'https://www.youtube.com/feeds/videos.xml?channel_id=UC1soWWg79S9TUdSjzAHHftw';
 const CACHE_EXPIRATION = 6 * 60 * 60 * 1000; // 6 hours in milliseconds
 
 let allProcessedItems = [];
@@ -30,15 +91,56 @@ function truncateText(text, maxLength = 300) {
 }
 
 function formatDate(date) {
-    return date.toLocaleString('en-US', {
-        day: '2-digit',
-        month: 'short',
+    if (!(date instanceof Date) || isNaN(date)) {
+        // 尝试解析特殊格式的日期字符串
+        const dateStr = date.toString();
+        const match = dateStr.match(/([A-Za-z]{3,}) (\d{1,2}),(\d{4}),(\d{2}):(\d{2}):(\d{2}) (AM|PM)/i);
+        
+        if (match) {
+            const months = {
+                'JAN': 0, 'FEB': 1, 'MAR': 2, 'APR': 3, 'MAY': 4, 'JUN': 5,
+                'JUL': 6, 'AUG': 7, 'SEP': 8, 'OCT': 9, 'NOV': 10, 'DEC': 11
+            };
+            
+            let hours = parseInt(match[4]);
+            if (match[7].toUpperCase() === 'PM' && hours < 12) {
+                hours += 12;
+            } else if (match[7].toUpperCase() === 'AM' && hours === 12) {
+                hours = 0;
+            }
+            
+            date = new Date(
+                parseInt(match[3]), // year
+                months[match[1].toUpperCase().substr(0, 3)], // month
+                parseInt(match[2]), // day
+                hours, // hours
+                parseInt(match[5]), // minutes
+                parseInt(match[6]) // seconds
+            );
+        } else {
+            // 如果无法解析，返回当前日期
+            return new Date().toLocaleString('zh-CN', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit',
+                second: '2-digit',
+                hour12: false
+            }).replace(/\//g, '-');
+        }
+    }
+    
+    // 中文格式的日期时间
+    return date.toLocaleString('zh-CN', {
         year: 'numeric',
+        month: '2-digit',
+        day: '2-digit',
         hour: '2-digit',
         minute: '2-digit',
         second: '2-digit',
-        hour12: true
-    });
+        hour12: false
+    }).replace(/\//g, '-');
 }
 
 function parseDate(dateString) {
@@ -174,80 +276,102 @@ function displayItems() {
 }
 
 async function fetchAndDisplayFeed(url) {
-    if (currentFeedUrl === url) return;
-    currentFeedUrl = url;
+  if (currentFeedUrl === url) return;
+  currentFeedUrl = url;
 
-    feedContainer.innerHTML = ''; // Clear previous feed content
-    errorMessage.style.display = 'none';
-    displayedItemCount = 0;
-    allProcessedItems = [];
+  feedContainer.innerHTML = ''; // 清空之前的内容
+  errorMessage.style.display = 'none';
+  displayedItemCount = 0;
+  allProcessedItems = [];
 
-    loadingIndicator.style.display = 'block';
-    loadingIndicator.textContent = 'Fetching feed... This is the easy part.';
+  loadingIndicator.style.display = 'block';
+  loadingIndicator.textContent = '正在获取订阅源...';
 
-    try {
-        const response = await fetch(CORS_PROXY + encodeURIComponent(url));
+  try {
+    const response = await fetch(CORS_PROXY + encodeURIComponent(url));
+    if (!response.ok) throw new Error('网络响应异常');
 
-        if (!response.ok) {
-            throw new Error('Network response was not ok');
-        }
+    loadingIndicator.textContent = '正在解析内容...';
 
-        loadingIndicator.textContent = 'Parsing feed... It can take time due to network latency, server delays, large feed sizes, and browser performance. Still, no more than 2 to 15 seconds.';
+    const xmlText = await response.text();
+    const parser = new DOMParser();
+    const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
 
-        const xmlText = await response.text();
-        const parser = new DOMParser();
-        const xmlDoc = parser.parseFromString(xmlText, 'text/xml');
+    const feedInfo = extractFeedInfo(xmlDoc);
+    feedHeader.innerHTML = `
+      <h1 class="feed-heading">${feedInfo.title}</h1>
+      <p class="feed-description">${feedInfo.description}</p>
+      <p class="last-fetched">最后更新时间: ${formatDate(new Date())}</p>
+    `;
 
-        const feedInfo = extractFeedInfo(xmlDoc);
-        feedHeader.innerHTML = `
-            <h1 class="feed-heading">${feedInfo.title}</h1>
-            <p class="feed-description">${feedInfo.description}</p>
-            <p class="last-fetched">Last fetched: ${formatDate(new Date())}</p>
-        `;
+    loadingIndicator.textContent = '正在翻译内容...';
 
-        loadingIndicator.textContent = 'Extracting items...';
+    let items = xmlDoc.querySelectorAll('item, entry');
+    const translationBatch = [];
 
-        let items = xmlDoc.querySelectorAll('item, entry');
-
-        if (items.length === 0) { // Check for empty feed
-            errorMessage.textContent = "This feed is currently empty or unavailable.";
-            errorMessage.style.display = 'block';
-            loadingIndicator.style.display = 'none';
-            return; // Stop further processing
-        }
-
-        loadingIndicator.textContent = 'Processing items...';
-
-        const processedItems = Array.from(items).map(item => {
-            const title = extractTitle(item);
-            const link = extractLink(item);
-            const description = extractContent(item);
-            const date = extractDate(item);
-
-            return { title, link, description, date };
+    // 第一遍：收集所有需要翻译的文本
+    items.forEach(item => {
+      const title = extractTitle(item);
+      const description = extractContent(item);
+      
+      if (title) {
+        translationBatch.push({
+          type: 'title',
+          item: item,
+          text: title
         });
+      }
+      
+      if (description) {
+        translationBatch.push({
+          type: 'description',
+          item: item,
+          text: description
+        });
+      }
+    });
 
-        loadingIndicator.textContent = 'Sorting items...';
-
-        processedItems.sort((a, b) => b.date - a.date);
-
-        allProcessedItems = processedItems;
-
-        loadingIndicator.textContent = `Displaying ${processedItems.length} items...`;
-
-        displayItems();
-
-        loadingIndicator.style.display = 'none';
-
-        localStorage.setItem(`lastFetched-${url}`, new Date().toISOString()); // Always update last fetched time
-        localStorage.setItem('selectedFeedUrl', url); // Store the currently selected feed URL
-
-    } catch (error) {
-        console.error('Error fetching RSS feed:', error);
-        errorMessage.textContent = `Failed to load feed: ${error.message}`;
-        errorMessage.style.display = 'block';
-        loadingIndicator.style.display = 'none';
+    // 批量翻译（每批10个以减少请求次数）
+    const BATCH_SIZE = 10;
+    for (let i = 0; i < translationBatch.length; i += BATCH_SIZE) {
+      const batch = translationBatch.slice(i, i + BATCH_SIZE);
+      await Promise.all(batch.map(async ({type, item, text}) => {
+        const translated = await translateWithGoogle(text);
+        console.log("要翻译的内容:", text)
+        if (type === 'title') {
+          item._translatedTitle = translated;
+        } else {
+          item._translatedDesc = translated;
+        }
+      }));
     }
+
+    // 第二遍：构建最终结果
+    items.forEach(item => {
+      allProcessedItems.push({
+        title: item._translatedTitle || extractTitle(item),
+        link: extractLink(item),
+        description: item._translatedDesc || extractContent(item),
+        date: extractDate(item)
+      });
+    });
+
+    // 按日期排序
+    allProcessedItems.sort((a, b) => b.date - a.date);
+
+    loadingIndicator.textContent = `正在显示 ${allProcessedItems.length} 条内容...`;
+    displayItems();
+
+    loadingIndicator.style.display = 'none';
+    localStorage.setItem(`lastFetched-${url}`, new Date().toISOString());
+    localStorage.setItem('selectedFeedUrl', url);
+
+  } catch (error) {
+    console.error('获取RSS订阅源失败:', error);
+    errorMessage.textContent = `加载失败: ${error.message}`;
+    errorMessage.style.display = 'block';
+    loadingIndicator.style.display = 'none';
+  }
 }
 
 loadMoreBtn.addEventListener('click', displayItems);

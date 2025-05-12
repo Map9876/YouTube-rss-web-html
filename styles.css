@@ -1,3 +1,21 @@
+/* 添加到现有CSS中 */
+.language-switcher {
+  margin-top: 16px;
+  margin-bottom: 16px;
+}
+
+#language-selector {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--frost-3);
+  background-color: var(--frost-2);
+  font-size: var(--font-size-caption);
+  cursor: pointer;
+}
+
+#language-selector:hover {
+  background-color: var(--frost-3);
+}
 :root {
     --font-size-displaySmall: 41px;
     --font-size-heading1: 36px;

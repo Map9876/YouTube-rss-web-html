@@ -1,0 +1,35 @@
+{
+  "meta": {
+    "title": "简易RSS阅读器：随时获取您喜爱的内容更新",
+    "description": "在一个地方轻松跟踪和查找所有RSS订阅源的内容。随时获取您喜爱来源的新内容。简单易用。安装为PWA可获得快速访问和流畅体验。"
+  },
+  "ui": {
+    "feedReader": "订阅阅读器",
+    "subtitle": "一个用于配置和显示多个RSS订阅源的简单阅读器",
+    "configureFeeds": "配置订阅源",
+    "tryAppMode": "尝试应用模式",
+    "refreshHint": "要检查新内容，请按 Ctrl+F5",
+    "disclaimer": "免责声明：此平台的JavaScript完全由Mistral AI构建。它使用CORS代理获取RSS订阅源。所有数据都在您的浏览器本地处理，您的订阅源存储在设备上，不会发送到任何服务器。",
+    "terms": "您继续使用本网站即表示您同意",
+    "faq": "常见问题解答",
+    "loading": "加载中...",
+    "noFeeds": "尚未设置任何订阅源",
+    "noFeedsHint": "点击配置按钮添加URL或导入它们。您配置的订阅源存储在浏览器的本地存储中。您也可以从发现部分选择任何订阅源。",
+    "discoverFeeds": "发现更多订阅源",
+    "searchFeeds": "搜索订阅源...",
+    "exploreMore": "探索更多订阅源",
+    "noMatches": "未找到匹配项",
+    "noMatchesHint": "记得也要检查下拉列表",
+    "configureTitle": "配置您的订阅源",
+    "addFeedPlaceholder": "粘贴您想订阅的RSS源URL",
+    "addFeed": "添加订阅源",
+    "csvPlaceholder": "或粘贴已发布的CSV URL，例如来自Google表格的",
+    "loadCSV": "加载CSV",
+    "uploadCSV": "或从设备选择CSV",
+    "downloadCSV": "下载CSV备份",
+    "csvInstructions": "打开一个新的Google表格，将页面命名为'Feed URLs'，并在A1单元格中设置'Feed URLs'作为标题。在第一列粘贴RSS订阅源URL，然后转到文件 > 分享 > 发布到网络。选择'Feed URLs'页面，选择CSV格式，发布它并复制链接。",
+    "urlColumn": "URL",
+    "actionsColumn": "操作",
+    "delete": "删除"
+  }
+}

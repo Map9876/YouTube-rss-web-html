@@ -1,3 +1,15 @@
+
+curl https://c.map987.dpdns.org/https://www.youtube.com/@JetLagWarriors -O
+
+运行上面命令，得到一个html文本文件，打开搜索channel_id，找到如下内容：
+
+<link rel="alternate" type="application/rss+xml" title="RSS" href="https://www.youtube.com/feeds/videos.xml?channel_id=UC1soWWg79S9TUdSjzAHHftw"><meta property="og:title" 
+
+
+https://www.youtube.com/feeds/videos.xml?channel_id=UC1soWWg79S9TUdSjzAHHftw
+中UC1soWWg79S9TUdSjzAHHftw就是YouTube视频主的channel_id，
+---------------
+
 # RSS Feed Reader
 *A simple RSS feed reader for configuring and displaying multiple feeds. Easily track and find posts from all your RSS feeds in one place. Stay updated with new content from your favorite sources. Simple and user-friendly. Install it as a PWA for quick access and a smooth experience.*
 

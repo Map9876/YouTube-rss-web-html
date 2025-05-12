@@ -1,19 +1,19 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="zh-CN">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple RSS Feed Reader: Stay Updated with Your Favorite Feeds</title>
+    <title>简易RSS阅读器</title>
     <meta name="description"
-        content="Easily track and find posts from all your RSS feeds in one place. Stay updated with new content from your favorite sources. Simple and user-friendly. Install it as a PWA for quick access and a smooth experience.">
+        content="在一个地方轻松跟踪和查找所有RSS订阅源的内容。随时获取您喜爱来源的新内容。简单易用。">
     <meta property="og:image" content="assets/social-image.png">
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
     <link rel="apple-touch-icon" sizes="180x180" href="assets/favicon.svg">
 
-    <meta property="og:title" content="Simple RSS Feed Reader: Stay Updated with Your Favorite Feeds">
+    <meta property="og:title" content="简易RSS阅读器：随时获取您喜爱的内容更新">
     <meta property="og:description"
-        content="Easily track and find posts from all your RSS feeds in one place. Stay updated with new content from your favorite sources. Simple and user-friendly. Install it as a PWA for quick access and a smooth experience.">
+        content="在一个地方轻松跟踪和查找所有RSS订阅源的内容。随时获取您喜爱来源的新内容。简单易用。安装为PWA可获得快速访问和流畅体验。">
     <meta property="og:image" content="assets/social-image.png">
     <meta property="og:url" content="">
     <meta property="og:type" content="website">
@@ -36,40 +36,39 @@
     <main class="container">
         <section class="top-level">
             <div class="logo-name" onclick="location.reload(true);">
-                <img class="logo" src="assets/favicon.svg" alt="rss-favicon">
-                <h4 class="website-name">Feed Reader</h4>
+                <img class="logo" src="assets/favicon.svg" alt="rss图标">
+                <h4 class="website-name">订阅阅读器</h4>
             </div>
-            <p class="subtitle">A simple RSS feed reader for configuring and displaying multiple feeds.</p>
+            <p class="subtitle">一个用于配置和显示多个RSS订阅源的简单阅读器</p>
 
             <button id="configure-btn">
                 <i class="ph-duotone ph-sliders-horizontal"></i>
-                Configure feeds
+                配置订阅源
             </button>
 
             <div class="controls">
-                <select id="feed-selector" aria-label="Select a feed">
-                    <!-- Feeds will be populated here -->
+                <select id="feed-selector" aria-label="选择订阅源">
+                    <!-- 订阅源将在这里填充 -->
                 </select>
             </div>
             <div class="bottom">
-                <button class="add-button" aria-label="Install app">
-                    Try the App Mode
+                <button class="add-button" aria-label="安装应用">
+                    尝试应用模式
                 </button>
-                <p class="footnote">To check for new posts, press <code>Ctrl+F5</code>.</p>
+                <p class="footnote">要检查新内容，请按 <code>Ctrl+F5</code>。</p>
                 <p class="footnote">
-                    Disclaimer: This platform's JavaScript is fully built using Mistral AI. It uses
-                    a CORS proxy to fetch RSS feeds. All data is processed locally in your browser, and your feeds are
-                    stored on your device without being sent to any server.
+                    免责声明：此平台的JavaScript完全由Mistral AI构建。它使用CORS代理获取RSS订阅源。
+                    所有数据都在您的浏览器本地处理，您的订阅源存储在设备上，不会发送到任何服务器。
                 </p>
                 <p class="footnote">
-                    Your continued usage of this site means you agree to<a class="modal-link"
+                    您继续使用本网站即表示您同意<a class="modal-link"
                         href="https://github.com/romiojoseph/rss-feed-reader" target="_blank"
-                        rel="noopener noreferrer">the terms and conditions, privacy policy, and disclaimer</a>.
+                        rel="noopener noreferrer">服务条款、隐私政策和免责声明</a>。
                 </p>
 
                 <button id="openFaqModal">
                     <i class="ph-duotone ph-question"></i>
-                    Curious? Read the FAQ
+                    常见问题解答
                 </button>
             </div>
         </section>
@@ -77,39 +76,39 @@
         <section class="feed-level">
             <div class="main-content">
 
-                <div id="loading">Loading...</div>
+                <div id="loading">加载中...</div>
                 <div id="error-message"></div>
                 <div class="feed-header" id="feed-header">
-                    <!-- Feed title and description will be displayed here -->
+                    <!-- 订阅源标题和描述将显示在这里 -->
                 </div>
                 <div id="feed-container"></div>
                 <div class="no-feed-message" id="no-feed-message" style="display: none;">
                     <i class="ph-duotone ph-article"></i>
-                    <h6 class="subtle-heading">No feeds are set up yet.</h6>
-                    <p class="footnote">Click the configure button to add URLs or import them. Your configured feeds are
-                        stored in your browser's local storage. You can also pick any feed from the discover section.
+                    <h6 class="subtle-heading">尚未设置任何订阅源</h6>
+                    <p class="footnote">点击配置按钮添加URL或导入它们。您配置的订阅源存储在浏览器的本地存储中。
+                        您也可以从发现部分选择任何订阅源。
                     </p>
                 </div>
                 <button id="load-more-btn" style="display: none;">
-                    Load More Posts</button>
+                    加载更多内容</button>
             </div>
         </section>
 
         <section class="suggestion-level">
             <aside class="sidebar">
-                <h6 class="subtle-heading">Discover more feeds</h6>
-                <input type="text" id="search-input" placeholder="Search feeds...">
+                <h6 class="subtle-heading">发现更多订阅源</h6>
+                <input type="text" id="search-input" placeholder="搜索订阅源...">
                 <div id="suggested-feeds">
-                    <!-- Categories and feeds will be displayed here -->
+                    <!-- 分类和订阅源将显示在这里 -->
                 </div>
-                <select id="additional-feeds" aria-label="Explore more feeds">
-                    <option value="" disabled selected>Explore more feeds</option>
-                    <!-- Additional feeds will be displayed here -->
+                <select id="additional-feeds" aria-label="探索更多订阅源">
+                    <option value="" disabled selected>探索更多订阅源</option>
+                    <!-- 其他订阅源将显示在这里 -->
                 </select>
                 <div id="no-matches-message" style="display: none;">
                     <i class="ph-duotone ph-warning-circle"></i>
-                    <p>No matches found.</p>
-                    <p class="footnote">Remember to check the dropdown too.</p>
+                    <p>未找到匹配项</p>
+                    <p class="footnote">记得也要检查下拉列表</p>
                 </div>
             </aside>
         </section>
@@ -117,39 +116,38 @@
         <div id="configureModal" class="modal">
             <div class="modal-content">
                 <div class="modal-head">
-                    <h5 class="modal-title">Configure your feeds</h5>
+                    <h5 class="modal-title">配置您的订阅源</h5>
                     <span class="close">&times;</span>
                 </div>
                 <div class="urls">
                     <div class="add-feed-optn">
-                        <input type="text" id="feed-url" placeholder="Paste the RSS feed URL you want to follow">
+                        <input type="text" id="feed-url" placeholder="粘贴您想订阅的RSS源URL">
                         <button class="urls-button" onclick="addFeed()">
                             <i class="ph-duotone ph-rss"></i>
-                            Add feed
+                            添加订阅源
                         </button>
                     </div>
                     <div class="load-csv-optn">
                         <input type="text" id="csv-url"
-                            placeholder="Or paste the published CSV URL, such as one from Google Sheets">
+                            placeholder="或粘贴已发布的CSV URL，例如来自Google表格的">
                         <button class="urls-button" onclick="loadCSVFromURL()">
                             <i class="ph-duotone ph-git-pull-request"></i>
-                            Load CSV
+                            加载CSV
                         </button>
                         <input type="file" id="csv-upload" accept=".csv" style="display:none;"
                             onchange="uploadCSV(event)">
                     </div>
-                    <p class="footnote">Open a new Google Sheet, name the page "Feed URLs," and set "Feed URLs" as the
-                        header in cell A1. Paste the RSS feed URLs in the first column, then go to File > Share >
-                        Publish to web. Select the "Feed URLs" page, choose the CSV format, publish it, and copy the
-                        link.</p>
+                    <p class="footnote">打开一个新的Google表格，将页面命名为"Feed URLs"，并在A1单元格中设置"Feed URLs"作为标题。
+                        在第一列粘贴RSS订阅源URL，然后转到文件 > 分享 > 发布到网络。选择"Feed URLs"页面，
+                        选择CSV格式，发布它并复制链接。</p>
                     <div class="add-feed-optn">
                         <button class="up-down" onclick="document.getElementById('csv-upload').click()">
                             <i class="ph-duotone ph-file-arrow-up"></i>
-                            Or select CSV from your device
+                            或从设备选择CSV
                         </button>
                         <button id="downloadCSV" class="up-down" onclick="downloadCSV()">
                             <i class="ph-duotone ph-file-arrow-down"></i>
-                            Download CSV backup
+                            下载CSV备份
                         </button>
                     </div>
                 </div>
@@ -158,148 +156,138 @@
                     <thead>
                         <tr>
                             <th class="column1">URL</th>
-                            <th class="column2">Actions</th>
+                            <th class="column2">操作</th>
                         </tr>
                     </thead>
                     <tbody id="feed-table">
-                        <!-- Feeds will be displayed here -->
+                        <!-- 订阅源将显示在这里 -->
                     </tbody>
                 </table>
             </div>
         </div>
 
-        <!-- FAQ Modal -->
+        <!-- 常见问题解答弹窗 -->
         <div id="faqModal" class="modal">
             <div class="modal-content">
                 <span class="close">&times;</span>
-                <h5 class="modal-title">FAQ</h5>
+                <h5 class="modal-title">常见问题解答</h5>
                 <div class="faq-content">
 
-                    <p>First of all, I haven’t added any trackers or analytics, so feel free to browse without worry.<a
+                    <p>首先，我没有添加任何跟踪器或分析工具，所以请放心浏览。<a
                             class="modal-link" href="https://github.com/romiojoseph/rss-feed-reader" target="_blank"
-                            rel="noopener noreferrer">Read the terms and conditions, privacy policy, and disclaimer</a>.
+                            rel="noopener noreferrer">阅读服务条款、隐私政策和免责声明</a>。
                     </p>
 
-                    <h6 class="subtle-heading">Why another feed reader?</h6>
-                    <p>Honestly, I built this for myself because a few weeks ago, Omnivore announced <a
+                    <h6 class="subtle-heading">为什么又做一个订阅阅读器？</h6>
+                    <p>说实话，我是为自己构建的，因为几周前，Omnivore宣布<a
                             class="modal-link" href="https://www.theverge.com/rss/index.xml" target="_blank"
-                            rel="noopener noreferrer">they were joining ElevenLabs</a> and <a class="modal-link"
+                            rel="noopener noreferrer">他们将加入ElevenLabs</a>并<a class="modal-link"
                             href="https://blog.omnivore.app/p/details-on-omnivore-shutting-down" target="_blank"
-                            rel="noopener noreferrer"> shutting down their service.</a> I started searching for a new
-                        one but thought, why not try building one myself? And here I am. My initial plan was to create
-                        an Android app, but I temporarily settled for this. Maybe someday I'll revisit the idea.
+                            rel="noopener noreferrer">关闭他们的服务</a>。我开始寻找新的阅读器，
+                        但想为什么不尝试自己构建一个呢？这就是现在的成果。我最初的计划是创建一个Android应用，
+                        但暂时选择了这个方案。也许有一天我会重新考虑那个想法。
                     </p>
 
-                    <h6 class="subtle-heading">What is an RSS feed?</h6>
+                    <h6 class="subtle-heading">什么是RSS订阅源？</h6>
                     <p>
-                        RSS feeds provide updates about the latest posts, blogs, or articles from a website. For
-                        example, you can check this feed: <a class="modal-link"
-                            href="https://www.theverge.com/rss/index.xml" target="_blank" rel="noopener noreferrer">The
-                            Verge RSS feed</a>.
+                        RSS订阅源提供网站最新文章、博客或帖子的更新。例如，您可以查看这个订阅源：
+                        <a class="modal-link" href="https://www.theverge.com/rss/index.xml" target="_blank" 
+                        rel="noopener noreferrer">The Verge的RSS订阅源</a>。
                     </p>
 
-                    <h6 class="subtle-heading">How can I find an RSS feed for a website?</h6>
+                    <h6 class="subtle-heading">如何找到网站的RSS订阅源？</h6>
                     <p>
-                        Many blogs and websites have RSS feeds by default. To check, visit <a class="modal-link"
-                            href="https://feedsearch.dev/" target="_blank" rel="noopener noreferrer">Feedsearch</a> and
-                        paste any website URL. It will show if an RSS feed is available.
+                        许多博客和网站默认都有RSS订阅源。要检查，请访问<a class="modal-link"
+                            href="https://feedsearch.dev/" target="_blank" rel="noopener noreferrer">Feedsearch</a>并
+                        粘贴任何网站URL。它会显示是否有可用的RSS订阅源。
                     </p>
 
-                    <h6 class="subtle-heading">Why use RSS feeds?</h6>
-                    <p>When you subscribe to an RSS feed using an RSS reader app, you get updates directly in your feed.
-                        This saves you from manually checking websites, newsletters, or profiles. You can curate your
-                        own news feed and stay in control of what you want to see. <a class="modal-link"
+                    <h6 class="subtle-heading">为什么要使用RSS订阅源？</h6>
+                    <p>当您使用RSS阅读器应用订阅RSS订阅源时，您可以直接在订阅源中获取更新。
+                        这使您无需手动检查网站、新闻通讯或个人资料。您可以策划自己的新闻订阅源，
+                        并控制您想看的内容。<a class="modal-link"
                             href="https://romio.substack.com/p/rss-feeds-vs-email-subscriptions" target="_blank"
-                            rel="noopener noreferrer">Shared a blog here</a>.
+                            rel="noopener noreferrer">我在这里分享了一篇博客</a>。
                     </p>
 
-                    <h6 class="subtle-heading">Which RSS reader apps should I try?</h6>
-                    <p>If you're not happy here you can check out the Vivaldi browser, it includes an RSS reader, so you
-                        can use it without relying on third-party apps. However, this feature is currently unavailable
-                        on their mobile app. Other options include apps like <a class="modal-link"
-                            href="https://feeder.co/" target="_blank" rel="noopener noreferrer">Feeder</a>.
+                    <h6 class="subtle-heading">我应该尝试哪些RSS阅读器应用？</h6>
+                    <p>如果您对这里不满意，可以试试Vivaldi浏览器，它包含一个RSS阅读器，
+                        这样您就可以不依赖第三方应用。不过，此功能目前在其移动应用上不可用。
+                        其他选择包括像<a class="modal-link" href="https://feeder.co/" target="_blank"
+                            rel="noopener noreferrer">Feeder</a>这样的应用。
                     </p>
 
-                    <h6 class="subtle-heading">Do RSS feeds only show a few posts and replace old ones?</h6>
-                    <p>Yes, RSS feeds typically show a limited number of recent posts (e.g., 10-20), and older ones are
-                        replaced as new content is added. To keep track of older posts, you can <a class="modal-link"
-                            href="https://raindrop.io" target="_blank" rel="noopener noreferrer">bookmark or save the
-                            link using a service like Raindrop</a>.</p>
+                    <h6 class="subtle-heading">RSS订阅源是否只显示少量文章并替换旧文章？</h6>
+                    <p>是的，RSS订阅源通常只显示有限数量的近期文章（例如10-20篇），
+                        随着新内容的添加，旧文章会被替换。要跟踪旧文章，您可以<a class="modal-link"
+                            href="https://raindrop.io" target="_blank" rel="noopener noreferrer">使用像Raindrop这样的服务
+                            书签或保存链接</a>。</p>
 
-                    <h6 class="subtle-heading">What is a CORS proxy, and why is it used?</h6>
+                    <h6 class="subtle-heading">什么是CORS代理，为什么要使用它？</h6>
                     <p>
-                        A CORS proxy allows the app to fetch RSS feeds from different domains by bypassing cross-origin
-                        restrictions.
-                        This ensures the app can access and display feeds from various sources seamlessly.
-                        For this app, I used the <a class="modal-link" href="https://allorigins.win/" target="_blank"
-                            rel="noopener noreferrer">AllOrigins</a> CORS proxy service—thank you for the great service!
-                        The proxy acts as an intermediary, fetching the feed content and returning it to the app for
-                        display.
+                        CORS代理允许应用通过绕过跨源限制从不同域获取RSS订阅源。
+                        这确保应用可以无缝访问和显示来自各种来源的订阅源。
+                        对于这个应用，我使用了<a class="modal-link" href="https://allorigins.win/" target="_blank"
+                            rel="noopener noreferrer">AllOrigins</a> CORS代理服务——感谢这项伟大的服务！
+                        代理作为中介，获取订阅源内容并将其返回给应用显示。
                     </p>
 
-                    <h6 class="subtle-heading">How often are the feeds refreshed?</h6>
-                    <p>The feeds are refreshed every 6 hours. The application uses a service worker to cache the feed
-                        data and set an expiration time of 6 hours. After this period, the feed data is refreshed from
-                        the server.
+                    <h6 class="subtle-heading">订阅源多久刷新一次？</h6>
+                    <p>订阅源每6小时刷新一次。应用程序使用服务工作者缓存订阅源数据，
+                        并设置6小时的过期时间。此期限过后，订阅源数据将从服务器刷新。
                     </p>
 
-                    <h6 class="subtle-heading">What happens if I manually refresh the feeds?</h6>
-                    <p>You can manually refresh the feeds by pressing "Ctrl+F5" the tab (On mobile, swipe down twice).
-                        This triggers a fresh fetch of the feed data, bypassing the cache.
+                    <h6 class="subtle-heading">如果我手动刷新订阅源会发生什么？</h6>
+                    <p>您可以通过按"Ctrl+F5"（在移动设备上，向下滑动两次）手动刷新订阅源。
+                        这会触发订阅源数据的新鲜获取，绕过缓存。
                     </p>
 
-                    <h6 class="subtle-heading">What happens if I clear my browser data, including cache and cookies?
-                    </h6>
-                    <p>If you clear your browser data, including cache and cookies, the cached feed data, configured
-                        feeds and the last fetched timestamps will be lost. The application will need to fetch the feed
-                        data fresh from the server the next time you select a feed.
+                    <h6 class="subtle-heading">如果我清除浏览器数据（包括缓存和cookies）会发生什么？</h6>
+                    <p>如果您清除浏览器数据（包括缓存和cookies），缓存的订阅源数据、
+                        配置的订阅源和最后获取的时间戳将丢失。应用程序下次选择订阅源时，
+                        需要从服务器重新获取订阅源数据。
                     </p>
 
-                    <h6 class="subtle-heading">Where is my data processed?</h6>
-                    <p>All data processing, including filtering and rendering, happens locally within your browser. Your
-                        configured feeds are stored in your browser's local storage.
+                    <h6 class="subtle-heading">我的数据在哪里处理？</h6>
+                    <p>所有数据处理，包括过滤和渲染，都在您的浏览器本地进行。
+                        您配置的订阅源存储在浏览器的本地存储中。
                     </p>
 
-                    <h6 class="subtle-heading">Is my data sent to any servers?</h6>
-                    <p>No, your configured feeds and search data are not sent to any external servers. All operations
-                        are performed locally within your browser.
+                    <h6 class="subtle-heading">我的数据会发送到任何服务器吗？</h6>
+                    <p>不会，您配置的订阅源和搜索数据不会发送到任何外部服务器。
+                        所有操作都在您的浏览器本地执行。
                     </p>
 
-                    <h6 class="subtle-heading">Remember to periodically download CSV backup</h6>
+                    <h6 class="subtle-heading">记得定期下载CSV备份</h6>
                     <p>
-                        If you regularly add feed URLs manually, I suggest you use the Google Sheet way for easier
-                        management. However, if that feels like too much work, remember to download the CSV every now
-                        and then to keep a backup of your feeds.
+                        如果您经常手动添加订阅源URL，我建议您使用Google表格方式以便于管理。
+                        但如果觉得太麻烦，记得时不时下载CSV以保留订阅源的备份。
                     </p>
 
-
-                    <h6 class="subtle-heading">How is the selected feed preserved across page reloads?
-                    </h6>
-                    <p>The selected feed URL is stored in local storage. On page reload, the application retrieves the
-                        selected feed URL from local storage and sets the dropdown accordingly. This ensures that your
-                        feed selection is preserved across page reloads.
+                    <h6 class="subtle-heading">页面重新加载时如何保留选定的订阅源？</h6>
+                    <p>选定的订阅源URL存储在本地存储中。页面重新加载时，
+                        应用程序从本地存储检索选定的订阅源URL并相应地设置下拉列表。
+                        这确保您的订阅源选择在页面重新加载时得以保留。
                     </p>
 
-                    <h6 class="subtle-heading">Add on: Personal Telegram bot for sending RSS feed updates to a Telegram
-                        channel</h6>
-                    <p>This script allows you to fetch RSS feeds, check for new posts, and send them to a Telegram
-                        channel. The script uses Google Apps Script to handle the RSS feed fetching, Telegram messaging,
-                        and Google Sheets for tracking sent posts. <a class="modal-link"
+                    <h6 class="subtle-heading">附加：用于将RSS订阅源更新发送到Telegram频道的个人Telegram机器人</h6>
+                    <p>此脚本允许您获取RSS订阅源，检查新帖子并将其发送到Telegram频道。
+                        该脚本使用Google Apps Script处理RSS订阅源获取、Telegram消息传递，
+                        并使用Google表格跟踪已发送的帖子。<a class="modal-link"
                             href="https://github.com/romiojoseph/open-source/tree/main/telegram-bots/rss-new-post-alert-via-telegram"
-                            target="_blank" rel="noopener noreferrer">Get it here</a>.
+                            target="_blank" rel="noopener noreferrer">点击这里获取</a>。
                     </p>
 
-                    <h6 class="subtle-heading">How to get a YouTube channel's RSS feed?</h6>
-                    <p>To find the YouTube RSS feed for a channel, go to the channel's page. Right-click on the page and
-                        choose "View Page Source." Then, search for `channel_id=` in the source code. Copy the value
-                        that follows, which is the channel's ID. To create the feed URL, use the format:
-                        `https://www.youtube.com/feeds/videos.xml?channel_id=CHANNEL_ID`. Replace `CHANNEL_ID` with the
-                        ID you copied. This will give you the RSS feed for that channel.
+                    <h6 class="subtle-heading">如何获取YouTube频道的RSS订阅源？</h6>
+                    <p>要查找YouTube频道的RSS订阅源，请转到频道页面。
+                        右键单击页面并选择"查看页面源代码"。然后，在源代码中搜索`channel_id=`。
+                        复制后面的值，即频道的ID。要创建订阅源URL，请使用格式：
+                        `https://www.youtube.com/feeds/videos.xml?channel_id=频道ID`。
+                        将`频道ID`替换为您复制的ID。这将为您提供该频道的RSS订阅源。
                     </p>
 
-                    <h6 class="subtle-heading">These FAQs were also created by Mistral AI</h6>
-                    <p>I shared the entire project code with Mistral AI and asked it to generate FAQs based on the
-                        code.
+                    <h6 class="subtle-heading">这些常见问题解答也是由Mistral AI创建的</h6>
+                    <p>我将整个项目代码分享给Mistral AI，并要求它根据代码生成常见问题解答。
                     </p>
 
                 </div>
@@ -307,7 +295,9 @@
         </div>
 
     </main>
-
+    <!-- 注释掉语言切换功能
+    <script src="language.js"></script>
+    -->
     <script src="script.js"></script>
     <script src="modal.js"></script>
 
@@ -336,10 +326,10 @@
             window.addEventListener('load', () => {
                 navigator.serviceWorker.register('/service-worker.js')
                     .then(registration => {
-                        console.log('ServiceWorker registration successful with scope: ', registration.scope);
+                        console.log('ServiceWorker注册成功，范围: ', registration.scope);
                     })
                     .catch(error => {
-                        console.log('ServiceWorker registration failed: ', error);
+                        console.log('ServiceWorker注册失败: ', error);
                     });
             });
         }
