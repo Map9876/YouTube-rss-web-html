@@ -1,9 +1,18 @@
+### YouTube作者更新阅读器
+
+#### https://youtube.map987.dpdns.org
+
 
 curl https://c.map987.dpdns.org/https://www.youtube.com/@JetLagWarriors -O
 
-运行上面命令，得到一个html文本文件，打开搜索channel_id，找到如下内容：
+```
+https://c.map987.dpdns.org/ 是cloudflare workers代理
 
-<link rel="alternate" type="application/rss+xml" title="RSS" href="https://www.youtube.com/feeds/videos.xml?channel_id=UC1soWWg79S9TUdSjzAHHftw"><meta property="og:title" 
+使用https://github.com/ymyuuu/Cloudflare-Workers-Proxy部署
+```
+运行上面命令，得到一个YouTube用户频道主页的html文本文件，打开搜索channel_id，找到如下内容：
+
+`ot; &quot;travel vlogs&quot; &quot;travel videos&quot; &quot;travel vloggers&quot;"><link rel="alternate" type="application/rss+xml" title="RSS" href="https://www.youtube.com/feeds/videos.xml?channel_id=UC1soWWg79S9TUdSjzAHHftw"><meta property="og:title" content="JetLag Warriors"><link rel="image_src" href="https://yt3.googleusercontent.com/3oMNP0XtIH5B0XTxIGWTRJ0PCfmL4pLV9xMuemtbMT10nJU5ZPfn-kl5sDKxj9ZQStDr9YtS=s900-c-k-c0x00ffffff-no-rj"><meta property="…………`
 
 
 https://www.youtube.com/feeds/videos.xml?channel_id=UC1soWWg79S9TUdSjzAHHftw
